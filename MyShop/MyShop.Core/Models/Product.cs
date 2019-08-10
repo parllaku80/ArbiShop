@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyShop.Core.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -8,9 +9,8 @@ using System.Threading.Tasks;
 
 namespace MyShop.Core.Models
 {
-    public class Product
+    public class Product : BaseEntity
     {
-        public string Id { get; set; }
 
         [StringLength(20)]
         [DisplayName("Product Name")]
@@ -21,10 +21,5 @@ namespace MyShop.Core.Models
         public decimal Price { get; set; }
         public string Category { get; set; }
         public string Image { get; set; } //URL for product image
-
-        public Product() // custom controller with an id generation by guid
-        {
-            this.Id = Guid.NewGuid().ToString();
-        }
     }
 }
