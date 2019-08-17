@@ -50,11 +50,34 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataContext.cs" />
+    <Compile Include="Migrations\201908171725366_Initial.cs" />
+    <Compile Include="Migrations\201908171725366_Initial.Designer.cs">
+      <DependentUpon>201908171725366_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908171733409_Initial1.cs" />
+    <Compile Include="Migrations\201908171733409_Initial1.Designer.cs">
+      <DependentUpon>201908171733409_Initial1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyShop.Core\MyShop.Core.csproj">
+      <Project>{35DACCB2-144A-4264-B830-85036AE4B7C7}</Project>
+      <Name>MyShop.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201908171725366_Initial.resx">
+      <DependentUpon>201908171725366_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908171733409_Initial1.resx">
+      <DependentUpon>201908171733409_Initial1.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
