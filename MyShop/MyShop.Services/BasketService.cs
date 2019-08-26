@@ -1,5 +1,6 @@
 ﻿using MyShop.Core.Contracts;
 using MyShop.Core.Models;
+using MyShop.Core.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,13 +31,13 @@ namespace MyShop.Services
         {
             HttpCookie cookie = httpContext.Request.Cookies.Get(BasketSessionName);
             Basket basket = new Basket();
-            if(cookie != null)
+            if (cookie != null)
             {
                 string basketId = cookie.Value;
                 if (!string.IsNullOrEmpty(basketId))
                 {
                     basket = basketContext.Find(basketId);
-                }else
+                } else
                 {
                     if (createIfNull)
                     {
@@ -84,7 +85,7 @@ namespace MyShop.Services
                 };
 
                 basket.BasketItems.Add(item);
-            }else
+            } else
             {
                 ++item.Quantity; //no need toupdate because entityfw will take care of updating the value
             }
@@ -104,7 +105,30 @@ namespace MyShop.Services
             }
         }
 
+        public List<BasketItemViewModel> GetBasketItems(HttpContextBase httpContext)
+        {
+            Basket basket = GetBasket(httpContext, false);
 
-
+            if (basket != null)
+            {
+                var results = (from b in basket.BasketItems
+                              join p in productContext.Collection()
+                              on b.ProductId equals p.Id
+                              select new BasketItemViewModel() {
+                                  Id = b.Id,
+                                  Quantity = b.Quantity,
+                                  ProductName = p.Name,
+                                  Image = p.Image,
+                                  Price = p.Price,
+                                }).ToList();
+                return results;
+            }
+            else
+            {
+                return new List<BasketItemViewModel>();
+            }
+        }
     }
+
 }
+
