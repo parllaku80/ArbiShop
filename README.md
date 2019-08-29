@@ -1,2 +1,2 @@
-# ArbiShop
+# MyShop
 My Shop eCommerce Demo

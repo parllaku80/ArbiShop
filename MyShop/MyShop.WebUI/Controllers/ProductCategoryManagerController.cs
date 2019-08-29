@@ -11,15 +11,13 @@ namespace MyShop.WebUI.Controllers
 {
     public class ProductCategoryManagerController : Controller
     {
-
         IRepository<ProductCategory> context;
 
         public ProductCategoryManagerController(IRepository<ProductCategory> context)
         {
             this.context = context;
         }
-
-        // GET: ProductCategoryManager
+        // GET: ProductManager
         public ActionResult Index()
         {
             List<ProductCategory> productCategories = context.Collection().ToList();
@@ -43,8 +41,10 @@ namespace MyShop.WebUI.Controllers
             {
                 context.Insert(productCategory);
                 context.Commit();
+
                 return RedirectToAction("Index");
             }
+
         }
 
         public ActionResult Edit(string Id)
@@ -61,10 +61,11 @@ namespace MyShop.WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(ProductCategory productCategory, string Id)
+        public ActionResult Edit(ProductCategory product, string Id)
         {
             ProductCategory productCategoryToEdit = context.Find(Id);
-            if (productCategory == null)
+
+            if (productCategoryToEdit == null)
             {
                 return HttpNotFound();
             }
@@ -72,22 +73,21 @@ namespace MyShop.WebUI.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return View(productCategory);
+                    return View(product);
                 }
 
-                productCategoryToEdit.Category = productCategory.Category;
+                productCategoryToEdit.Category = product.Category;
 
                 context.Commit();
 
                 return RedirectToAction("Index");
-
-
             }
         }
 
         public ActionResult Delete(string Id)
         {
             ProductCategory productCategoryToDelete = context.Find(Id);
+
             if (productCategoryToDelete == null)
             {
                 return HttpNotFound();
@@ -100,9 +100,10 @@ namespace MyShop.WebUI.Controllers
 
         [HttpPost]
         [ActionName("Delete")]
-        public ActionResult ConfirmDelte(string Id)
+        public ActionResult ConfirmDelete(string Id)
         {
             ProductCategory productCategoryToDelete = context.Find(Id);
+
             if (productCategoryToDelete == null)
             {
                 return HttpNotFound();
@@ -112,7 +113,6 @@ namespace MyShop.WebUI.Controllers
                 context.Delete(Id);
                 context.Commit();
                 return RedirectToAction("Index");
-
             }
         }
     }

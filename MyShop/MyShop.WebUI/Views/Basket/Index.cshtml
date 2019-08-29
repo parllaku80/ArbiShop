@@ -4,7 +4,7 @@
     ViewBag.Title = "Basket";
 }
 
-<h2>Index</h2>
+<h2>Basket</h2>
 
 <table class="table">
     <tr>
@@ -12,11 +12,9 @@
         <th>
             @Html.DisplayNameFor(model => model.ProductName)
         </th>
-
         <th>
             @Html.DisplayNameFor(model => model.Quantity)
         </th>
-        
         <th>
             @Html.DisplayNameFor(model => model.Price)
         </th>
@@ -28,7 +26,7 @@
 
 @foreach (var item in Model) {
     <tr>
-       <td><img class="img" src="~/Content/ProductImages/@item.Image"</td>
+        <td><img style="height:50px" class="img" src="~/Content/ProductImages/@item.Image" /></td>
         <td>
             @Html.DisplayFor(modelItem => item.ProductName)
         </td>
@@ -37,13 +35,13 @@
         </td>
         
         <td>
-            @String.Format("{0:c}", item.Price)  @*using the formatting options from String*@
+            @String.Format("{0:c}", item.Price)
         </td>
         <td>
-           @String.Format("{0:c}", item.Price * item.Quantity)
+            @String.Format("{0:c}", item.Price * item.Quantity)
         </td>
         <td>
-            <a href="@Url.Action("RemoveFromBasket", "Basket", new {Id=item.Id})" class="btn btn-danger">Delete</a>
+            <a href="@Url.Action("RemoveFromBasket", "Basket", new { Id=item.Id })" class="btn btn-danger">Delete</a>
         </td>
     </tr>
 }
@@ -51,4 +49,5 @@
         <td colspan="4" style="text-align:right"><strong>Basket Total</strong></td>
         <td>@String.Format("{0:c}", (from p in Model select p.Price * p.Quantity).Sum())</td>
     </tr>
+
 </table>

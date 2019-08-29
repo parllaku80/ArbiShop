@@ -8,10 +8,9 @@ namespace MyShop.Core.Models
 {
     public class Basket : BaseEntity
     {
-        public virtual ICollection<BasketItem> BasketItems { get; set; } //lazy loading
+        public virtual ICollection<BasketItem> BasketItems { get; set; }
 
-        public Basket()
-        {
+        public Basket() {
             this.BasketItems = new List<BasketItem>();
         }
     }
