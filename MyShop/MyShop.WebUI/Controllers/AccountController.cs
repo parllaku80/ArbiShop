@@ -21,8 +21,7 @@ namespace MyShop.WebUI.Controllers
         private ApplicationUserManager _userManager;
         private IRepository<Customer> customerRepository;
 
-
-        public AccountController(IRepository<Customer> customerRepository)
+        public AccountController(IRepository<Customer> customerRepository )
         {
             this.customerRepository = customerRepository;
         }
@@ -154,7 +153,7 @@ namespace MyShop.WebUI.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    //Register the customer model
+                    //register the customer model
                     Customer customer = new Customer()
                     {
                         City = model.City,
@@ -164,11 +163,11 @@ namespace MyShop.WebUI.Controllers
                         State = model.State,
                         Street = model.Street,
                         ZipCode = model.ZipCode,
-                        UserId = user.Id,
+                        UserId = user.Id
                     };
 
-                customerRepository.Insert(customer);
-                customerRepository.Commit();
+                    customerRepository.Insert(customer);
+                    customerRepository.Commit();
 
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
